@@ -94,27 +94,27 @@ Postgresql databases provide express based APIs.
 =require("@apparts/backend-test")= returns a function wich returns an
 object with the following key/value pairs:
 
-- =checkType : (any, string) ==> boolean= :: A wrapper around the
+- =checkType : (any, string) => boolean= :: A wrapper around the
   =checkType= function from the [[https://github.com/phuhl/apparts-types][@apparts/types]] package. The first
   parameter of =checkType= is already set (with value from =apiContainer=
   parameter) for convenience.
-- =allChecked : (string) ==> boolean= :: A wrapper around the
+- =allChecked : (string) => boolean= :: A wrapper around the
   ==allChecked= function from the [[https://github.com/phuhl/apparts-types][@apparts/types]] package. The first
   parameter of =allChecked= is already set (with value from =apiContainer=
   parameter) for convenience.
 - =app : <express app>= :: A express app. It lacks routes, these have to
   be added manually. A minimal middleware is already applied to this
   app (injection of database, body parser).
-- =url : (string) ==> string= :: A helper that turns a string to a
+- =url : (string) => string= :: A helper that turns a string to a
   versioned version of this string, by prepending =/v/<apiVersion>/= to
   the string. =apiVersion= is the value of the parameter
   =apiVersion=. This allows to change the api-version of all calls with
   one variable.
-- =error : (string, ?string) ==> object= :: A helper that creates an
+- =error : (string, ?string) => object= :: A helper that creates an
   object of the form of the body, produced by the =HttpError= from the
   package [[https://github.com/phuhl/apparts-error][@apparts/error]]. Can be used with the supertest =toMatchObject=
   matcher.
-- =runDBQuery : async (async (<dbs>) ==> any) ==> any= :: A function that
+- =runDBQuery : async (async (<dbs>) => any) => any= :: A function that
   expects a function as parameter. This function receives a
   [[https://github.com/phuhl/apparts-db][@apparts/db]] =DBS= object as parameter. It's return value will be
   awaited and returned by =runDBQuery=.
