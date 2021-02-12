@@ -161,6 +161,8 @@ object with the following key/value pairs:
     ],
   });
 
+  const request = require("supertest");
+
   describe("GET test", () => {
     // Using a variable for the function name makes it easy to copy this
     // test for another endpoint and not forgot to change the function
