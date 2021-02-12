@@ -76,7 +76,7 @@ Also make sure, in your package.json there is no jest configuration.
 
   return {
     checkType: (res, name) => _checkType(apiContainer, res, name),
-    allChecked: (res, name) => _allChecked(apiContainer, res, name),
+    allChecked: (name) => _allChecked(apiContainer, name),
     app,
     url: url(apiVersion),
     error,
