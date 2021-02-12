@@ -1,7 +1,7 @@
 const applyMiddleware = require("./middleware");
 const express = require("express");
 
-module.exports = (DB_CONFIG) => () => {
+module.exports = (DB_CONFIG) => {
   const app = express();
   app.use((req, res, next) => {
     req.headers = {
