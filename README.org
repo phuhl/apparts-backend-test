@@ -65,10 +65,10 @@ Postgresql databases provide express based APIs.
    #+BEGIN_SRC sh
    npm run test
 
-   // for coverage report:
+   # for coverage report:
    npm run testCoverage
 
-   // without watching file changes
+   # without watching file changes
    npm run testOne
    #+END_SRC
 
