@@ -7,7 +7,13 @@ Postgresql databases provide express based APIs.
 
 * Usage
 
-1. Create a =jest.config.js= file in the root directory of your project.
+1. Add to your =package.json= in the =scripts= section:
+   #+BEGIN_SRC js
+   "testOne": "jest",
+   "test": "jest --watch --detectOpenHandles",
+   "testCoverage": "jest --coverage"
+   #+END_SRC
+2. Create a =jest.config.js= file in the root directory of your project.
    #+BEGIN_SRC js
    const jestConfig = require("@apparts/backend-test").getJestConfig();
    
@@ -16,7 +22,7 @@ Postgresql databases provide express based APIs.
      // additional config
    };
    #+END_SRC
-2. Create a =config/db-test-config.json= or =config/db-test-config.js= or
+3. Create a =config/db-test-config.json= or =config/db-test-config.js= or
    export the values as an environment variable with the name
    =DB_TEST_CONFIG= with this content (as JSON, for the js file you'd
    need to export the object):
@@ -36,7 +42,7 @@ Postgresql databases provide express based APIs.
         }
       }
    #+END_EXAMPLE
-3. Create tests. To use this library, start the tests with this on
+4. Create tests. To use this library, start the tests with this on
    top:
    #+BEGIN_SRC js
      const { app, url, error, getPool } = require("@apparts/backend-test")({
@@ -45,7 +51,7 @@ Postgresql databases provide express based APIs.
        ...require("./tests/config.js")  
      });
    #+END_SRC
-4. Create a =tests/config.js= for storing test information that is valid
+5. Create a =tests/config.js= for storing test information that is valid
    for more than one test:
    #+BEGIN_SRC js
      const fs = require("fs");
@@ -54,6 +60,16 @@ Postgresql databases provide express based APIs.
          .map(name => fs.readFileSync(name).toString()),
        apiVersion: 1,
      };
+   #+END_SRC
+6. Run tests with
+   #+BEGIN_SRC sh
+   npm run test
+
+   // for coverage report:
+   npm run testCoverage
+
+   // without watching file changes
+   npm run testOne
    #+END_SRC
 
 
