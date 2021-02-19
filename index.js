@@ -3,9 +3,7 @@ const jestConfig = require("./jest.config.js");
 const testapp = require("./test-app");
 const fs = require("fs");
 
-const {
-  checkApiTypes: { checkType: _checkType, allChecked: _allChecked },
-} = require("@apparts/types");
+const { useChecks } = require("@apparts/types");
 
 const { setup, teardown, getPool } = require("./database");
 
@@ -75,8 +73,7 @@ Also make sure, in your package.json there is no jest configuration.
   }, 60000);
 
   return {
-    checkType: (res, name) => _checkType(apiContainer, res, name),
-    allChecked: (name) => _allChecked(apiContainer, name),
+    ...useChecks(apiContainer),
     app,
     url: url(apiVersion),
     error,
