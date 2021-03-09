@@ -22,10 +22,10 @@ module.exports = ({
   } catch (e) {
     throw new Error(`Please make sure, you include the @apparts/backend-test jest configuration into your project:
 
-Create the file jest.conf.js in the root directory of your project:
+Create the file jest.config.js in the root directory of your project:
 
 const jestConfig = require("@apparts/backend-test").getJestConfig();
-module.exports {
+module.exports = {
   ...jestConfig,
   // additional config
 };
