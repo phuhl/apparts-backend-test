@@ -31,7 +31,7 @@ Postgresql databases provide express based APIs.
         "use": "postgresql",
         "postgresql": {
           "host": "localhost",
-          "port": 5433,
+          "port": 5432,
           "user": "postgres",
           "pw": "",
           "db": "<dbname>",
