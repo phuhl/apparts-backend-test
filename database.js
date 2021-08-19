@@ -9,6 +9,7 @@ const setup = async (schemas, setupSql, databaseName) => {
   };
   pg_config.db = databaseName;
   pg_config.database = databaseName;
+  pg_config.password = pg_config.pw;
 
   try {
     await createOrDropDatabase("DROP", pg_config, databaseName);
@@ -35,14 +36,14 @@ const setup = async (schemas, setupSql, databaseName) => {
     await new Promise((res) => dbs.shutdown(() => res()));
   }
   dbs = await new Promise((res) => {
-    connect({ use: "postgresql", postgresql: pg_config }, (e, dbs) => {
+    connect({ use: "postgresql", postgresql: pg_config }, (e, newDbs) => {
       if (e) {
         /* istanbul ignore next */
         console.log("DB ERROR");
         throw e;
       }
       console.log("Connected to DB for tests");
-      res(dbs);
+      res(newDbs);
     });
   });
   return dbs;
@@ -54,8 +55,9 @@ const getPool = () => {
 
 const teardown = async () => {
   if (dbs) {
-    await new Promise((res) => dbs.shutdown(() => res()));
+    const tempDbs = dbs;
     dbs = null;
+    await new Promise((res) => tempDbs.shutdown(() => res()));
   }
 };
 
