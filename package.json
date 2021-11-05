@@ -25,11 +25,11 @@
     "@apparts/types": "^6.1.1"
   },
   "dependencies": {
-    "pg": "^8.3.0",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "jest": "^26.6.0",
-    "jest-circus": "^26.6.3",
+    "jest": "^27.3.1",
+    "jest-circus": "^27.3.1",
+    "pg": "^8.3.0",
     "supertest": "^6.1.3"
   }
 }
