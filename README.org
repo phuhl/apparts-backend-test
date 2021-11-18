@@ -82,12 +82,16 @@ Postgresql databases provide express based APIs.
 - =apiVersion : int= :: (Required) The API version of a versioned API, that is
   being tested
 - =apiContainer: object= :: The container for the functions you want
-  [[https://github.com/phuhl/apparts-types][@apparts/types]] =checkApiTypes= to test against.
+  [[https://github.com/phuhl/apparts-types][@apparts/types]] =checkApiTypes= to test against. If this parameter is
+  not supplied, =checkType= and =allChecked= will throw an error.
 - =schemas : [string]= :: Database schemas, to be run first to create
   all tables
 - =databasePreparations : [async function : string]= :: A list of
   functions (that can be async) that return strings, containing sql
   code that should be run to setup the database
+- =testApp : express app= :: If supplied, this app will be used as the
+  express app, the tests will be performed on. Otherwise a default
+  test app will be used.
 
 ** Returns
 

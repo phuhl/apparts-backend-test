@@ -1,6 +1,6 @@
 const { error, url, runDBQuery, pSetupquery } = require("./helpers");
 const jestConfig = require("./jest.config.js");
-const testapp = require("./test-app");
+const defaultTestApp = require("./test-app");
 const fs = require("fs");
 
 const { useChecks } = require("@apparts/types");
@@ -8,6 +8,7 @@ const { useChecks } = require("@apparts/types");
 const { setup, teardown, getPool } = require("./database");
 
 module.exports = ({
+  testApp = defaultTestApp,
   apiContainer,
   apiVersion = 1,
   schemas = [],
@@ -45,14 +46,14 @@ Also make sure, in your package.json there is no jest configuration.
   const DB_CONFIG = { ...require("@apparts/config").get("db-test-config") };
   DB_CONFIG.postgresql.db = databaseName;
 
-  const app = testapp(DB_CONFIG);
+  const app = testApp(DB_CONFIG);
 
   if (!Array.isArray(databasePreparations)) {
     databasePreparations = [databasePreparations];
   }
 
   beforeAll(async () => {
-    await testapp.shutdown();
+    await testApp.shutdown();
 
     const setupquery = await pSetupquery(databasePreparations);
     try {
@@ -65,7 +66,7 @@ Also make sure, in your package.json there is no jest configuration.
 
   afterAll(async () => {
     await teardown(databaseName);
-    await testapp.shutdown();
+    await testApp.shutdown();
 
     // avoid jest open handle error
     // https://github.com/visionmedia/supertest/issues/520#issuecomment-469044925
@@ -73,7 +74,20 @@ Also make sure, in your package.json there is no jest configuration.
   }, 60000);
 
   return {
-    ...useChecks(apiContainer),
+    ...(apiContainer
+      ? useChecks(apiContainer)
+      : {
+          checkType: () => {
+            throw new Error(
+              "checkType called, but apiContainer undefined. Supply a valid apiContainer to @apparts/backend-test"
+            );
+          },
+          allChecked: () => {
+            throw new Error(
+              "allChecked called, but apiContainer undefined. Supply a valid apiContainer to @apparts/backend-test"
+            );
+          },
+        }),
     app,
     url: url(apiVersion),
     error,
